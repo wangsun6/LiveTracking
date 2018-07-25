@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:padding="15dp"
+    tools:context=".login.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/id_change_signup"
+                android:layout_weight="1"
+                android:text="Sign Up"
+                android:textStyle="bold"
+                style="@style/commonTxt"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/id_chnage_login"
+                android:layout_weight="1"
+                android:text="Login"
+                android:textStyle="bold"
+                android:gravity="center"
+                style="@style/commonTxt" />
+        </LinearLayout>
+
+
+        <!--Sign-Up -->
+        <LinearLayout
+            android:id="@+id/id_layout_signup"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/id_new_username"
+                    android:hint="Username:"
+                    style="@style/commonEdit_single_line" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/id_new_mobile"
+                    android:hint="Mobile:"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    style="@style/commonEdit_single_line" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/id_new_password"
+                    android:hint="Password:"
+                    android:inputType="textPassword"
+                    style="@style/commonEdit_single_line" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/id_new_signup"
+                style="@style/commonBtn"
+                android:text="Sign In"/>
+
+        </LinearLayout>
+
+
+        <!--Login -->
+        <LinearLayout
+            android:id="@+id/id_layout_login"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/id_username"
+                    android:hint="Username:"
+                    style="@style/commonEdit_single_line" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/id_password"
+                    android:hint="Password:"
+                    android:inputType="textPassword"
+                    style="@style/commonEdit_single_line" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/id_signup"
+                style="@style/commonBtn"
+                android:text="Login"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
