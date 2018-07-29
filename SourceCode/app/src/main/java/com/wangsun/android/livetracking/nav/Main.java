@@ -29,7 +29,7 @@ import com.wangsun.android.livetracking.services.Alarm_broadcast;
 
 public class Main extends AppCompatActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    FragmentTransaction fragmentTransaction;
+    //FragmentTransaction fragmentTransaction;
 
     String fragment_selector;
 
@@ -55,13 +55,13 @@ public class Main extends AppCompatActivity {
             editor.putString("map_from","direct");
             editor.apply();
 
-            fragmentTransaction = fragmentManager.beginTransaction();
+            //fragmentTransaction = fragmentManager.beginTransaction();
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     if(!fragment_selector.equals("home")){
                         fragment_selector="home";
-                        fragmentTransaction.replace(R.id.content,new Home()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.content,new Home()).commit();
                         menu_delete.getItem(0).setVisible(false);
                     }
                     return true;
@@ -73,7 +73,7 @@ public class Main extends AppCompatActivity {
                         editor.putString("map_from","direct");
                         editor.apply();
 
-                        fragmentTransaction.replace(R.id.content,new Map()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.content,new Map()).commit();
                         menu_delete.getItem(0).setVisible(false);
                     }
 
@@ -83,8 +83,8 @@ public class Main extends AppCompatActivity {
                         editor=sp.edit();
                         editor.putString("map_from","direct");
                         editor.apply();
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content,new Map()).commit();
+                        //fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentManager.beginTransaction().replace(R.id.content,new Map()).commit();
                         menu_delete.getItem(0).setVisible(false);
                     }
                     return true;
@@ -92,7 +92,7 @@ public class Main extends AppCompatActivity {
                 case R.id.nav_history:
                     if(!fragment_selector.equals("history")){
                         fragment_selector="history";
-                        fragmentTransaction.replace(R.id.content,new History()).commit();
+                        fragmentManager.beginTransaction().replace(R.id.content,new History()).commit();
                         menu_delete.getItem(0).setVisible(true);
                     }
 
@@ -110,9 +110,9 @@ public class Main extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction = fragmentManager.beginTransaction();
         fragment_selector="home";
-        fragmentTransaction.replace(R.id.content,new Home()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content,new Home()).commit();
         navigation.getMenu().getItem(0).setChecked(true);
 
         helperDb=new DbHelper_gps(Main.this);
@@ -187,8 +187,8 @@ public class Main extends AppCompatActivity {
             helperDb.deleteAll(db);
             Toast.makeText(Main.this,"Locations deleted.", Toast.LENGTH_LONG).show();
 
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content,new History()).commit();
+            //fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentManager.beginTransaction().replace(R.id.content,new History()).commit();
 
         }
         else {
@@ -247,8 +247,8 @@ public class Main extends AppCompatActivity {
         editor.putLong("lati",Double.doubleToRawLongBits(lati));
         editor.apply();
 
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content,new Map()).commit();
+        //fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.beginTransaction().replace(R.id.content,new Map()).commit();
         fragment_selector="map";
         menu_delete.getItem(0).setVisible(false);
 
@@ -259,8 +259,8 @@ public class Main extends AppCompatActivity {
         editor.putString("map_from","home");
         editor.apply();
 
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content,new Map()).commit();
+        //fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.beginTransaction().replace(R.id.content,new Map()).commit();
         fragment_selector="map";
         menu_delete.getItem(0).setVisible(false);
 

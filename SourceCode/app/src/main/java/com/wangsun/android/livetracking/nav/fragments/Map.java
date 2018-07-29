@@ -181,8 +181,14 @@ public class Map extends Fragment implements OnMapReadyCallback{
 
     void update_new_location() {
         Toast.makeText(getContext(),"Getting current location..",Toast.LENGTH_LONG).show();
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, listener);
+            locationManager.removeUpdates(listener);
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, listener);
+        }
+
+
     }
 
     @Override

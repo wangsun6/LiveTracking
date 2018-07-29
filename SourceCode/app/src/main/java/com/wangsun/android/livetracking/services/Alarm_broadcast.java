@@ -38,9 +38,8 @@ public class Alarm_broadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context2=context;
 
-        initialize();
-
         helperDb=new DbHelper_gps(context2);
+        initialize();
     }
 
     public void initialize(){
@@ -90,7 +89,27 @@ public class Alarm_broadcast extends BroadcastReceiver {
     void update_new_location() {
         Toast.makeText(context2,"Updating GPS",Toast.LENGTH_LONG).show();
 
-        if (ActivityCompat.checkSelfPermission(context2, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, listener);
+        if (ActivityCompat.checkSelfPermission(context2, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 7000, 0, listener);
+
+            //last location is inserted
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            //Toast.makeText(context2,"Location: "+lastKnownLocation.getLatitude(),Toast.LENGTH_LONG).show();
+
+            db = helperDb.getWritableDatabase();
+            helperDb.create_table(db);
+
+            Date new_date=new Date();
+            long long_date=new_date.getTime();
+
+            //Date currentTime = Calendar.getInstance().getTime();
+            //SimpleDateFormat sdf=new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
+            //String temp_time=sdf.format(new_date);
+
+            helperDb.addvalues(lastKnownLocation.getLongitude(),lastKnownLocation.getLatitude(),long_date,db);
+            db.close();
+            Toast.makeText(context2,"Location added.",Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
