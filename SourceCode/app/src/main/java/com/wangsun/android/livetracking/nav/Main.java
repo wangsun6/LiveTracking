@@ -77,7 +77,7 @@ public class Main extends AppCompatActivity {
                         menu_delete.getItem(0).setVisible(false);
                     }
 
-                    if(!navigation.getMenu().getItem(0).isChecked()){
+                    if(!navigation.getMenu().getItem(1).isChecked()){
                         fragment_selector="map";
 
                         editor=sp.edit();

@@ -50,7 +50,7 @@ public class Map extends Fragment implements OnMapReadyCallback{
     SharedPreferences sp;
 
     private LocationManager locationManager;
-    private LocationListener listener;
+    private LocationListener listener,listener2;
 
 
     public Map() {
@@ -150,8 +150,7 @@ public class Map extends Fragment implements OnMapReadyCallback{
     public void get_current_location(){
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
 
-
-        listener = new LocationListener() {
+        listener2 = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 LatLng sydney = new LatLng(location.getLatitude(),location.getLongitude());
@@ -175,6 +174,39 @@ public class Map extends Fragment implements OnMapReadyCallback{
             }
         };
 
+
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                LatLng sydney = new LatLng(location.getLatitude(),location.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Your current location"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                locationManager.removeUpdates(listener);
+
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0, listener2);
+                }
+
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+            }
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                //if GPS setting is off. It will redirect to the setting
+                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                getContext().startActivity(i);
+            }
+        };
+
+
+
         update_new_location();
     }
 
@@ -182,10 +214,7 @@ public class Map extends Fragment implements OnMapReadyCallback{
     void update_new_location() {
         Toast.makeText(getContext(),"Getting current location..",Toast.LENGTH_LONG).show();
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, listener);
-            locationManager.removeUpdates(listener);
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, listener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 3000, 0, listener);
         }
 
 
@@ -196,5 +225,7 @@ public class Map extends Fragment implements OnMapReadyCallback{
         super.onDestroy();
         if(listener!=null)
             locationManager.removeUpdates(listener);
+        if(listener2!=null)
+            locationManager.removeUpdates(listener2);
     }
 }
